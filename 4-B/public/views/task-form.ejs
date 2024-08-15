@@ -1,0 +1,26 @@
+<h1><%= task ? 'Edit Task' : 'New Task' %></h1>
+
+<% if (error) { %>
+<div class="error-message" style="color: red"><%= error %></div>
+<% } %>
+
+<form action="<%= task ? '/tasks/edit' : '/task-form' %>" method="POST">
+  <div class="form-group">
+    <label for="name">Task Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      value="<%= task ? task.name : '' %>"
+      required
+    />
+  </div>
+  <input type="hidden" name="collection_id" value="<%= collectionId %>" />
+  <% if (task) { %>
+  <input type="hidden" name="id" value="<%= task.id %>" />
+  <% } %>
+  <button type="submit" class="btn btn-primary">
+    <%= task ? 'Update' : 'Create' %>
+  </button>
+</form>

@@ -1,0 +1,41 @@
+<h2>Tasks in Collection: <%= collectionName %></h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.forEach(task => { %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%= task.is_done ? 'Done' : 'Pending' %></td>
+      <td>
+        <form action="/tasks/update" method="POST" style="display: inline">
+          <input type="hidden" name="id" value="<%= task.id %>" />
+          <input
+            type="hidden"
+            name="is_done"
+            value="<%= task.is_done ? 'false' : 'true' %>"
+          />
+          <button type="submit" class="btn btn-info btn-sm">
+            Toggle Status
+          </button>
+        </form>
+        <form action="/tasks/delete" method="POST" style="display: inline">
+          <input type="hidden" name="id" value="<%= task.id %>" />
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<a href="/task-form?collection_id=<%= collectionId %>" class="btn btn-primary"
+  >Add New Task</a
+>
+<a href="/collections?collection_id=<%= collectionId %>" class="btn btn-primary"
+  >Back to collections</a
+>
